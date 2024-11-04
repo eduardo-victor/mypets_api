@@ -16,14 +16,14 @@ public class UsuarioServices implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        Usuario usuario = usuarioRepository.findByLogin(username);
-        if (usuario == null){
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) {
             throw new UsernameNotFoundException("Usuário não encontrado.");
         }
 
         return User.builder()
-                .username(usuario.getLogin())
+                .username(usuario.getEmail())
                 .password(usuario.getSenha())
                 .roles("USER")
                 .build();
